@@ -25,6 +25,4 @@ Danh sách chức năng làm được
 
 Link video demo: https://youtu.be/KJkXoMjbYv8
 
-Điểm đề nghị: 10/10
-
 
