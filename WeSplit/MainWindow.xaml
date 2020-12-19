@@ -1,0 +1,278 @@
+﻿<Window x:Class="WeSplit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeSplit"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="765" Width="1268" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <local:RelativeToAbsoluteConverter x:Key="imagePathConverter"/>
+    </Window.Resources>
+    <Border CornerRadius="80" BorderThickness="8" BorderBrush="Black" Background="#F5F3FB">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="40" Width="95" Background="#1D212C" Margin="28,25,28,25" >
+                <StackPanel Orientation="Vertical">
+                    <Image Source="Assets/Icon.png" Width="65" Margin="0,50" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Button Margin="0,0,0,0" Style="{StaticResource MenuButtonStyle}" Click="home_Clicked">
+                        <Image Source="Assets/homeIcon.png" Width="65" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                    <Button Margin="0,0,0,0" Style="{StaticResource MenuButtonStyle}" Click="search_Clicked">
+                        <Image Source="Assets/searchIcon.png" Width="65" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                    <Button Margin="0,0,0,0" Style="{StaticResource MenuButtonStyle}" Click="create_Clicked">
+                        <Image Source="Assets/plusIcon.png" Width="65" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                    <Button Margin="0,0,0,0" Style="{StaticResource MenuButtonStyle}" Click="setting_Clicked">
+                        <Image Source="Assets/settingIcon.png" Width="65" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                    <Button Margin="0,0,0,0" Style="{StaticResource MenuButtonStyle}" Click="info_Clicked">
+                        <Image Source="Assets/infoIcon.png" Width="65" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                    <Button Margin="0,0,0,0" Style="{StaticResource MenuButtonStyle}" Click="Power_Click">
+                        <Image Source="Assets/powerIcon.png" Width="65" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <StackPanel Grid.Column="1" x:Name="homeWindow" Visibility="Hidden" Orientation="Vertical" Margin="20,25,28,25">
+                <TextBlock Text="WeSplit" FontSize="60" Foreground="DarkBlue" TextAlignment="Left" FontWeight="Bold" Margin="10"/>
+                <TextBlock Text="_Ongoing________________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Width="1000">
+                    <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" x:Name="ongoingStackPanel">
+                        
+                    </StackPanel>
+                </ScrollViewer>
+                <TextBlock Text="_Completed_____________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Width="1000">
+                    <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" x:Name="completedStackPanel">
+                       
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="settingWindow" Visibility="Hidden" Orientation="Vertical" Margin="20,25,28,25">
+                <TextBlock Text="Setting" FontSize="60" Foreground="DarkBlue" TextAlignment="Left" FontWeight="Bold" Margin="10"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Don't allow splash screen" FontSize="30" FontWeight="Bold" Foreground="Black" Margin="10,0"/>
+                    <ToggleButton x:Name="splashOnOffBtn" Checked="splashOnOff_Checked" Unchecked="splashOnOff_UnChecked" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Default ToggleButton Style" Margin="10,0" Width="40"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="searchWindow" Visibility="Hidden" Orientation="Vertical" Margin="20,25,28,25">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Searching:" FontSize="60" Foreground="DarkBlue" TextAlignment="Left" FontWeight="Bold" Margin="10"/>
+                    <TextBox x:Name="searchTB" Width="400" Height="40" TextWrapping="Wrap" FontSize="25" Foreground="Black"/>
+                    <ComboBox x:Name="SearchCB" materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}" Width="150" Margin="10,0" FontSize="15">
+                        <ComboBoxItem x:Name="journeyCB" IsSelected="True">
+                            Journey's Name
+                        </ComboBoxItem>
+                        <ComboBoxItem x:Name="memberCB">
+                            Member's Name
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <Button x:Name="searchBtn" Click="searchJourney_Clicked" Background="PaleTurquoise" Width="100" Height="40" Margin="20,0">
+                        <Image Source="/Assets/searchIcon.png" Width="40" RenderOptions.BitmapScalingMode="HighQuality" />
+                    </Button>
+                </StackPanel>
+                <TextBlock Text="_Ongoing________________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Width="1000">
+                    <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" x:Name="ongoingSearch">
+                        
+                    </StackPanel>
+                </ScrollViewer>
+                <TextBlock Text="_Completed_____________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Width="1000">
+                    <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" x:Name="completedSearch">
+                        
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="infoWindow" Visibility="Hidden" Orientation="Vertical" Margin="20,25,28,25">
+                <TextBlock Text="Infomation" FontSize="60" Foreground="DarkBlue" TextAlignment="Left" FontWeight="Bold" Margin="10"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="App version:" FontSize="30" FontWeight="Bold" Foreground="Black" Margin="20,0" HorizontalAlignment="Left"/>
+                    <TextBlock Text="1.0.0" FontSize="30" Foreground="Black" Margin="20,0" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <TextBlock Text="Team developer:" FontSize="30" FontWeight="Bold" Foreground="Black" Margin="20,0" HorizontalAlignment="Left"/>
+                <TextBlock Text="1712278-Nguyễn Thị Phương Anh-1712278@student.hcmus.edu.vn" FontSize="28" Foreground="Black" Margin="80,0" HorizontalAlignment="Left"/>
+                <TextBlock Text="1712655-Lê Anh Phi-1712655@student.hcmus.edu.vn" FontSize="28" Foreground="Black" Margin="80,0" HorizontalAlignment="Left"/>
+                <TextBlock Text="1712801-Đoàn Phước Thống-1712801@student.hcmus.edu.vn" FontSize="28" Foreground="Black" Margin="80,0" HorizontalAlignment="Left"/>
+                <TextBlock Text="Copyright © 2020" FontSize="25" FontWeight="Bold" Foreground="Black" Margin="20,300" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="createWindow" Visibility="Hidden" Orientation="Vertical" Margin="20,25,28,25">
+                <TextBlock x:Name="createJourneyTBk" Text="Create Journey" FontSize="60" Foreground="DarkBlue" TextAlignment="Left" FontWeight="Bold" Margin="10,10,10,20"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical">
+                        <TextBox x:Name="createNameJourney" Width="350" Margin="0,10"
+                        materialDesign:HintAssist.Hint="Journey name"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4" />
+                        <TextBox x:Name="createDetailJourney" Width="350" Height="150" TextWrapping="Wrap" AcceptsReturn="True"
+                        materialDesign:HintAssist.Hint="Journey detail"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4" />
+                        <ComboBox x:Name="destinationCB" materialDesign:HintAssist.Hint="Journey's destination" Width="350" Margin="10"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Visible" Width="360">
+                            <StackPanel x:Name="createImageJourney" Orientation="Horizontal" Background="Snow" Height="150" Margin="10">
+                                
+                            </StackPanel>
+                        </ScrollViewer>
+                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Click="importImg_Clicked" Width="350" ToolTip="Resource name: MaterialDesignRaisedButton" Margin="10,0">
+                            Import image
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <DatePicker x:Name="createDayStart" Width="200" materialDesign:HintAssist.Hint="Day Start" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Margin="10"/>
+                            <DatePicker x:Name="createDayEnd" Width="200" materialDesign:HintAssist.Hint="Day End" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="40" Margin="10"/>
+                            <CheckBox x:Name="createStatusCB" Content="Is Completed" Margin="10" FontSize="15" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="createNameMember" Width="270" Margin="10"
+                               materialDesign:HintAssist.Hint="Member"
+                               materialDesign:HintAssist.IsFloating="True"
+                               materialDesign:TextFieldAssist.HasClearButton="True"
+                               materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                               materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                               materialDesign:TextFieldAssist.TextFieldCornerRadius="4" />
+                            <TextBox x:Name="createDonation" Width="250" Margin="10"
+                               materialDesign:HintAssist.Hint="Donation"
+                               materialDesign:HintAssist.IsFloating="True"
+                               materialDesign:TextFieldAssist.HasClearButton="True"
+                               materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                               materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                               materialDesign:TextFieldAssist.TextFieldCornerRadius="4" />
+                            <Button x:Name="createMemberBtn" Click="addMember_Clicked" Width="80" Height="40">
+                                <materialDesign:PackIcon Kind="AccountPlus" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            </Button>
+                        </StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="150">
+                            <StackPanel x:Name="createMemberSB" Orientation="Vertical" Background="Snow" CanVerticallyScroll="True">
+                                <StackPanel Orientation="Horizontal" Background="RoyalBlue" Margin="10,0,10,5">
+                                    <TextBlock Text="Members" FontSize="20" FontWeight="Bold" Foreground="White" TextAlignment="Center" Width="300"/>
+                                    <TextBlock Text="Donation" FontSize="20" FontWeight="Bold" Foreground="White" TextAlignment="Center" Width="250"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="createNameExpenditure" Width="270" Margin="10"
+                               materialDesign:HintAssist.Hint="Expenditure"
+                               materialDesign:HintAssist.IsFloating="True"
+                               materialDesign:TextFieldAssist.HasClearButton="True"
+                               materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                               materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                               materialDesign:TextFieldAssist.TextFieldCornerRadius="4" />
+                            <TextBox x:Name="createPrice" Width="250" Margin="10"
+                               materialDesign:HintAssist.Hint="Price"
+                               materialDesign:HintAssist.IsFloating="True"
+                               materialDesign:TextFieldAssist.HasClearButton="True"
+                               materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                               materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                               materialDesign:TextFieldAssist.TextFieldCornerRadius="4" />
+                            <Button x:Name="createExpenditureBtn" Width="80" Height="40" Click="addPrice_Clicked">
+                                <materialDesign:PackIcon Kind="WalletPlus" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            </Button>
+                        </StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="150">
+                            <StackPanel x:Name="createExpenditureSB" Orientation="Vertical" Background="Snow" CanVerticallyScroll="True">
+                                <StackPanel Orientation="Horizontal" Background="RoyalBlue" Margin="10,0,10,5">
+                                    <TextBlock Text="Expenditures" FontSize="20" FontWeight="Bold" Foreground="White" TextAlignment="Center" Width="300"/>
+                                    <TextBlock Text="Price" FontSize="20" FontWeight="Bold" Foreground="White" TextAlignment="Center" Width="250"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="10,20,10,0">
+                    <Grid Width="350" Margin="100,0,0,0">
+                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Click="createCancel_Clicked" Height="50" materialDesign:ButtonAssist.CornerRadius="10" ToolTip="MaterialDesignRaisedButton with Round Corners" Background="#4D1DCF">
+                            <TextBlock Text="Cancel" FontWeight="Bold" FontSize="30" />
+                        </Button>
+                    </Grid>
+                    <Grid Width="350" Margin="150,0,0,0">
+                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Click="createSave_Clicked" Height="50" materialDesign:ButtonAssist.CornerRadius="10" ToolTip="MaterialDesignRaisedButton with Round Corners" Background="#4D1DCF">
+                            <TextBlock Text="Save" FontWeight="Bold" FontSize="30" />
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Column="1" x:Name="journeyWindow" Orientation="Vertical" Margin="20,25,28,25">
+                <DockPanel>
+                    <TextBlock Text="{Binding JName}" Width="900" DockPanel.Dock="Left" FontSize="60" Foreground="DarkBlue" TextAlignment="Left" FontWeight="Bold" Margin="10"/>
+                    <Button x:Name="editBtn" Width="60" DockPanel.Dock="Right" Height="60" Background="Transparent">
+                        <Image Source="/Assets/editIcon.png" Width="60" HorizontalAlignment="Center" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                </DockPanel>
+                <ScrollViewer Height="600" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="_Journey's Destination_______________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                        <TextBlock Text="{Binding nameDes}" TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="Black" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Image Source="{Binding imgPath, Converter={StaticResource imagePathConverter}}" Width="900" Height="450" HorizontalAlignment="Center" Margin="20,5" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Text="{Binding infoDes}" FontSize="20" TextWrapping="Wrap" Foreground="Black" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="_Journey's Image_______________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Visible" Width="1000">
+                            <StackPanel x:Name="JImageSP" Height="210" Background="Snow" Orientation="Horizontal" CanHorizontallyScroll="True"/>
+                        </ScrollViewer>
+                        <TextBlock Text="_Journey's Time_______________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Day start:" FontSize="20" FontWeight="Bold" Foreground="Black" Margin="10,0" />
+                            <TextBlock Text="{Binding JDayStart}" FontSize="20"  Foreground="Black" Margin="0" />
+                            <TextBlock Text="Day end:" FontSize="20" FontWeight="Bold" Foreground="Black" Margin="200,0,10,0" />
+                            <TextBlock Text="{Binding JDayEnd}" FontSize="20"  Foreground="Black" Margin="0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Status:" FontSize="20" FontWeight="Bold" Foreground="Black" Margin="10,0" />
+                            <TextBlock Text="{Binding Jstatus}" FontSize="20"  Foreground="Black" Margin="0" />
+                        </StackPanel>
+                        <TextBlock Text="_Introduce_______________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                        <TextBlock Text="{Binding JIntroduce}" FontSize="20" TextWrapping="Wrap" Foreground="Black" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="_Pie Chart_______________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                        <StackPanel x:Name="pieStack" Orientation="Horizontal">
+                            <Grid x:Name="pieGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="500"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel x:Name="expendPieStack" Orientation="Vertical"/>
+                                <StackPanel Grid.Column="1" x:Name="donaPieStack" Orientation="Vertical"/>
+                            </Grid>
+                        </StackPanel>
+                        <TextBlock Text="_Expenditure_______________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                     
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="200">
+                            <StackPanel x:Name="JExpenditureSP" Width="800" Background="Snow" Orientation="Vertical" CanVerticallyScroll="True"/>
+                        </ScrollViewer>
+                       
+                        <TextBlock Text="_Donation_______________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="200">
+                            <StackPanel x:Name="JMemberSP" Width="800" Background="Snow" Orientation="Vertical" CanVerticallyScroll="True"/>
+                        </ScrollViewer>
+                        <TextBlock Text="_WeSplit_______________________________________________________________________" FontSize="30" Foreground="DarkSlateBlue" TextAlignment="Left" FontWeight="Bold" Margin="5"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="200">
+                            <StackPanel x:Name="JSplitSP" Width="800" Background="Snow" Orientation="Vertical" CanVerticallyScroll="True"/>
+                        </ScrollViewer>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

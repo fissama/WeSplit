@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WeSplitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Destination">
+          <Key>
+            <PropertyRef Name="DestinationID" />
+          </Key>
+          <Property Name="DestinationID" Type="int" Nullable="false" />
+          <Property Name="DName" Type="nvarchar" MaxLength="100" />
+          <Property Name="DIntroduce" Type="nvarchar" MaxLength="3000" />
+          <Property Name="DImage" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Expenditure">
+          <Key>
+            <PropertyRef Name="ExpenditureID" />
+          </Key>
+          <Property Name="ExpenditureID" Type="int" Nullable="false" />
+          <Property Name="EName" Type="nvarchar" MaxLength="100" />
+          <Property Name="EPrice" Type="varchar" MaxLength="100" />
+          <Property Name="JourneyID" Type="int" />
+        </EntityType>
+        <EntityType Name="JImage">
+          <Key>
+            <PropertyRef Name="JImageID" />
+          </Key>
+          <Property Name="JImageID" Type="int" Nullable="false" />
+          <Property Name="JImageLink" Type="varchar" MaxLength="1000" />
+          <Property Name="JourneyID" Type="int" />
+        </EntityType>
+        <EntityType Name="Journey">
+          <Key>
+            <PropertyRef Name="JourneyID" />
+          </Key>
+          <Property Name="JourneyID" Type="int" Nullable="false" />
+          <Property Name="JName" Type="nvarchar" MaxLength="100" />
+          <Property Name="JStatus" Type="bit" />
+          <Property Name="JDayStart" Type="date" />
+          <Property Name="JDayEnd" Type="date" />
+          <Property Name="DestinationID" Type="int" />
+          <Property Name="JIntroduce" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="MName" Type="nvarchar" MaxLength="100" />
+          <Property Name="MDonation" Type="varchar" MaxLength="100" />
+          <Property Name="MAvatar" Type="varchar" MaxLength="1000" />
+          <Property Name="JourneyID" Type="int" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="status" />
+          </Key>
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="value" Type="int" />
+        </EntityType>
+        <Association Name="FK__Expenditu__Journ__2C3393D0">
+          <End Role="Journey" Type="Self.Journey" Multiplicity="0..1" />
+          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journey">
+              <PropertyRef Name="JourneyID" />
+            </Principal>
+            <Dependent Role="Expenditure">
+              <PropertyRef Name="JourneyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__JImage__JourneyI__2F10007B">
+          <End Role="Journey" Type="Self.Journey" Multiplicity="0..1" />
+          <End Role="JImage" Type="Self.JImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journey">
+              <PropertyRef Name="JourneyID" />
+            </Principal>
+            <Dependent Role="JImage">
+              <PropertyRef Name="JourneyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Journey__Destina__267ABA7A">
+          <End Role="Destination" Type="Self.Destination" Multiplicity="0..1" />
+          <End Role="Journey" Type="Self.Journey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Destination">
+              <PropertyRef Name="DestinationID" />
+            </Principal>
+            <Dependent Role="Journey">
+              <PropertyRef Name="DestinationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__JourneyI__29572725">
+          <End Role="Journey" Type="Self.Journey" Multiplicity="0..1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journey">
+              <PropertyRef Name="JourneyID" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="JourneyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WeSplitModelStoreContainer">
+          <EntitySet Name="Destination" EntityType="Self.Destination" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenditure" EntityType="Self.Expenditure" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JImage" EntityType="Self.JImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Journey" EntityType="Self.Journey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Expenditu__Journ__2C3393D0" Association="Self.FK__Expenditu__Journ__2C3393D0">
+            <End Role="Journey" EntitySet="Journey" />
+            <End Role="Expenditure" EntitySet="Expenditure" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JImage__JourneyI__2F10007B" Association="Self.FK__JImage__JourneyI__2F10007B">
+            <End Role="Journey" EntitySet="Journey" />
+            <End Role="JImage" EntitySet="JImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Journey__Destina__267ABA7A" Association="Self.FK__Journey__Destina__267ABA7A">
+            <End Role="Destination" EntitySet="Destination" />
+            <End Role="Journey" EntitySet="Journey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__JourneyI__29572725" Association="Self.FK__Member__JourneyI__29572725">
+            <End Role="Journey" EntitySet="Journey" />
+            <End Role="Member" EntitySet="Member" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WeSplitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Destination">
+          <Key>
+            <PropertyRef Name="DestinationID" />
+          </Key>
+          <Property Name="DestinationID" Type="Int32" Nullable="false" />
+          <Property Name="DName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DIntroduce" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="DImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Journeys" Relationship="Self.FK__Journey__Destina__267ABA7A" FromRole="Destination" ToRole="Journey" />
+        </EntityType>
+        <EntityType Name="Expenditure">
+          <Key>
+            <PropertyRef Name="ExpenditureID" />
+          </Key>
+          <Property Name="ExpenditureID" Type="Int32" Nullable="false" />
+          <Property Name="EName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EPrice" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JourneyID" Type="Int32" />
+          <NavigationProperty Name="Journey" Relationship="Self.FK__Expenditu__Journ__2C3393D0" FromRole="Expenditure" ToRole="Journey" />
+        </EntityType>
+        <EntityType Name="JImage">
+          <Key>
+            <PropertyRef Name="JImageID" />
+          </Key>
+          <Property Name="JImageID" Type="Int32" Nullable="false" />
+          <Property Name="JImageLink" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="JourneyID" Type="Int32" />
+          <NavigationProperty Name="Journey" Relationship="Self.FK__JImage__JourneyI__2F10007B" FromRole="JImage" ToRole="Journey" />
+        </EntityType>
+        <EntityType Name="Journey">
+          <Key>
+            <PropertyRef Name="JourneyID" />
+          </Key>
+          <Property Name="JourneyID" Type="Int32" Nullable="false" />
+          <Property Name="JName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="JStatus" Type="Boolean" />
+          <Property Name="JDayStart" Type="DateTime" Precision="0" />
+          <Property Name="JDayEnd" Type="DateTime" Precision="0" />
+          <Property Name="DestinationID" Type="Int32" />
+          <NavigationProperty Name="Destination" Relationship="Self.FK__Journey__Destina__267ABA7A" FromRole="Journey" ToRole="Destination" />
+          <NavigationProperty Name="Expenditures" Relationship="Self.FK__Expenditu__Journ__2C3393D0" FromRole="Journey" ToRole="Expenditure" />
+          <NavigationProperty Name="JImages" Relationship="Self.FK__JImage__JourneyI__2F10007B" FromRole="Journey" ToRole="JImage" />
+          <NavigationProperty Name="Members" Relationship="Self.FK__Member__JourneyI__29572725" FromRole="Journey" ToRole="Member" />
+          <Property Name="JIntroduce" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="MName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MDonation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MAvatar" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="JourneyID" Type="Int32" />
+          <NavigationProperty Name="Journey" Relationship="Self.FK__Member__JourneyI__29572725" FromRole="Member" ToRole="Journey" />
+        </EntityType>
+        <Association Name="FK__Journey__Destina__267ABA7A">
+          <End Role="Destination" Type="Self.Destination" Multiplicity="0..1" />
+          <End Role="Journey" Type="Self.Journey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Destination">
+              <PropertyRef Name="DestinationID" />
+            </Principal>
+            <Dependent Role="Journey">
+              <PropertyRef Name="DestinationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenditu__Journ__2C3393D0">
+          <End Role="Journey" Type="Self.Journey" Multiplicity="0..1" />
+          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journey">
+              <PropertyRef Name="JourneyID" />
+            </Principal>
+            <Dependent Role="Expenditure">
+              <PropertyRef Name="JourneyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__JImage__JourneyI__2F10007B">
+          <End Role="Journey" Type="Self.Journey" Multiplicity="0..1" />
+          <End Role="JImage" Type="Self.JImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journey">
+              <PropertyRef Name="JourneyID" />
+            </Principal>
+            <Dependent Role="JImage">
+              <PropertyRef Name="JourneyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__JourneyI__29572725">
+          <End Role="Journey" Type="Self.Journey" Multiplicity="0..1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journey">
+              <PropertyRef Name="JourneyID" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="JourneyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WeSplitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Destinations" EntityType="Self.Destination" />
+          <EntitySet Name="Expenditures" EntityType="Self.Expenditure" />
+          <EntitySet Name="JImages" EntityType="Self.JImage" />
+          <EntitySet Name="Journeys" EntityType="Self.Journey" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <AssociationSet Name="FK__Journey__Destina__267ABA7A" Association="Self.FK__Journey__Destina__267ABA7A">
+            <End Role="Destination" EntitySet="Destinations" />
+            <End Role="Journey" EntitySet="Journeys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenditu__Journ__2C3393D0" Association="Self.FK__Expenditu__Journ__2C3393D0">
+            <End Role="Journey" EntitySet="Journeys" />
+            <End Role="Expenditure" EntitySet="Expenditures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JImage__JourneyI__2F10007B" Association="Self.FK__JImage__JourneyI__2F10007B">
+            <End Role="Journey" EntitySet="Journeys" />
+            <End Role="JImage" EntitySet="JImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__JourneyI__29572725" Association="Self.FK__Member__JourneyI__29572725">
+            <End Role="Journey" EntitySet="Journeys" />
+            <End Role="Member" EntitySet="Members" />
+          </AssociationSet>
+          <EntitySet Name="Status" EntityType="WeSplitModel.Status" />
+        </EntityContainer>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="status1" />
+          </Key>
+          <Property Name="status1" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WeSplitModelStoreContainer" CdmEntityContainer="WeSplitEntities">
+          <EntitySetMapping Name="Destinations">
+            <EntityTypeMapping TypeName="WeSplitModel.Destination">
+              <MappingFragment StoreEntitySet="Destination">
+                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
+                <ScalarProperty Name="DName" ColumnName="DName" />
+                <ScalarProperty Name="DIntroduce" ColumnName="DIntroduce" />
+                <ScalarProperty Name="DImage" ColumnName="DImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenditures">
+            <EntityTypeMapping TypeName="WeSplitModel.Expenditure">
+              <MappingFragment StoreEntitySet="Expenditure">
+                <ScalarProperty Name="ExpenditureID" ColumnName="ExpenditureID" />
+                <ScalarProperty Name="EName" ColumnName="EName" />
+                <ScalarProperty Name="EPrice" ColumnName="EPrice" />
+                <ScalarProperty Name="JourneyID" ColumnName="JourneyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JImages">
+            <EntityTypeMapping TypeName="WeSplitModel.JImage">
+              <MappingFragment StoreEntitySet="JImage">
+                <ScalarProperty Name="JImageID" ColumnName="JImageID" />
+                <ScalarProperty Name="JImageLink" ColumnName="JImageLink" />
+                <ScalarProperty Name="JourneyID" ColumnName="JourneyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Journeys">
+            <EntityTypeMapping TypeName="WeSplitModel.Journey">
+              <MappingFragment StoreEntitySet="Journey">
+                <ScalarProperty Name="JIntroduce" ColumnName="JIntroduce" />
+                <ScalarProperty Name="JourneyID" ColumnName="JourneyID" />
+                <ScalarProperty Name="JName" ColumnName="JName" />
+                <ScalarProperty Name="JStatus" ColumnName="JStatus" />
+                <ScalarProperty Name="JDayStart" ColumnName="JDayStart" />
+                <ScalarProperty Name="JDayEnd" ColumnName="JDayEnd" />
+                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="WeSplitModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="MDonation" ColumnName="MDonation" />
+                <ScalarProperty Name="MAvatar" ColumnName="MAvatar" />
+                <ScalarProperty Name="JourneyID" ColumnName="JourneyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="WeSplitModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="status1" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

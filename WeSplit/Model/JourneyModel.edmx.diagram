@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ed75df63aa4948e5beb71f03617dcf12" Name="Diagram1">
+        <EntityTypeShape EntityType="WeSplitModel.Destination" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitModel.Expenditure" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitModel.JImage" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitModel.Journey" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitModel.Member" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="WeSplitModel.FK__Journey__Destina__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="WeSplitModel.FK__Expenditu__Journ__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="WeSplitModel.FK__JImage__JourneyI__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="WeSplitModel.FK__Member__JourneyI__29572725" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WeSplitModel.Status" Width="1.5" PointX="7.5" PointY="2.125" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

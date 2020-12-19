@@ -1,0 +1,29 @@
+﻿<Window x:Class="WeSplit.PowerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeSplit"
+        mc:Ignorable="d"
+        Title="PowerWindow" Height="300" Width="500" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True" >
+    <Window.Resources> 
+        <Style x:Key="YesNoButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
+    <Border CornerRadius="80" BorderThickness="8" Background="#1D212C">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Are you sure?" FontSize="40" Foreground="White" TextAlignment="Center" Margin="40,50,40,20"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="110,10,50,10" x:Name="yesButton" Click="yes_Click" Style="{StaticResource YesNoButtonStyle}">
+                    <Image Source="Assets/yes.png" Width="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+                <Button Margin="50,10,70,10" x:Name="noButton" Click="no_Click" Style="{StaticResource YesNoButtonStyle}">
+                    <Image Source="Assets/close.png" Width="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>
